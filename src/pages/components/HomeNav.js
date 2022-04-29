@@ -21,23 +21,39 @@ function HomeNav() {
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse className=" justify-content-end"  id="basic-navbar-nav">
-              <Nav>
+              <Nav style={{color:'grey'}}>
 
-              <NavLink className="nav-link-hover nav-link-home white" to="/">
-                HOME
-              </NavLink>
+                <NavLink className="nav-link-hover nav-link-home white" to="/">
+                  Home
+                </NavLink>
+                |
+                <NavLink className="nav-link-hover nav-link-home white" to="/analytics" >
+                  Analytics
+                </NavLink>
+                |
+                <NavLink className="nav-link-hover nav-link-home white" to="/about" >
+                  About Us
+                </NavLink>
+                |
+                <NavLink className="nav-link-hover nav-link-home white" to="/whatwedo" >
+                  What We Do
+                </NavLink>
+                |
+                <NavLink className="nav-link-hover nav-link-home white" to="/statistic" >
+                  Statistics
+                </NavLink>
+                |
+                <NavLink className="nav-link-hover nav-link-home white" to="/blog" >
+                  Blogs
+                </NavLink>
+                |
+                <NavLink className="nav-link-hover nav-link-home white" to="/ReportWaste" >
+                  Report Waste
+                </NavLink>
 
-              <NavLink className="nav-link-hover nav-link-home white" to="/analytics" >
-                ANALYTICS
-              </NavLink>
-
-              <NavLink className="nav-link-hover nav-link-home white" to="/ReportWaste" >
-                REPORT WASTE
-              </NavLink>
-
-              <NavLink className='nav-link-home' to="/login">
-                  <button className="signup px-3">SIGN IN</button>
-              </NavLink>
+                <NavLink className='nav-link-home' to="/login">
+                    <button className="signup px-3">SIGN IN</button>
+                </NavLink>
 
               </Nav>
 
