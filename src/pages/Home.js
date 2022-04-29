@@ -25,14 +25,14 @@ function Home() {
                     Report waste has been a catalyst in restructuring the waste management segment
                   </h1>
                   <p style={{letterSpacing:'2px'}}>
-                    <a href="https://www.safeenviro.co.uk/">SafeEnviro</a>
-                     UK is highly qualified in understanding the challenges faced in the wastes management industry around processes and worked with various companies in streamlining processes and blockchain based use cases to leverage customer base in a whole new way.
+                    <a href="https://www.safeenviro.co.uk/">SafeEnviro</a>&nbsp;
+                      UK is highly qualified in understanding the challenges faced in the wastes management industry around processes and worked with various companies in streamlining processes and blockchain based use cases to leverage customer base in a whole new way.
                   </p>
                   {/* <button id="btn-getstart" className='btn'>Get Start</button> */}
                 </div>
               </Row>
             </div>
-            {/* <Row className='justify-content-center'>
+            <Row className='justify-content-center'>
               <Row className='button-div'>
                 <Col md={6}>
                   <a href='/makec' style={{textDecoration:'none'}}>
@@ -49,7 +49,7 @@ function Home() {
                   </a>
                 </Col>
               </Row>
-            </Row> */}
+            </Row>
           </div>
           <Row className='justify-content-center m-0 px-3 grd-div'>
             {/* <h3 className='b-700 mt-5 pt-5 pb-2 text-center'>Our Client Feedback</h3>
