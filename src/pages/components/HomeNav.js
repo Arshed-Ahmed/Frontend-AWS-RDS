@@ -28,7 +28,7 @@ function HomeNav() {
                 </NavLink>
                 |
                 <NavLink className="nav-link-hover nav-link-home white" to="/analytics" >
-                  Analytics
+                  Blockchain Explorer
                 </NavLink>
                 |
                 <NavLink className="nav-link-hover nav-link-home white" to="/about" >
@@ -52,7 +52,7 @@ function HomeNav() {
                 </NavLink>
 
                 <NavLink className='nav-link-home' to="/login">
-                    <button className="signup px-3">SIGN IN</button>
+                    <button className="signup px-3">ADMIN</button>
                 </NavLink>
 
               </Nav>
