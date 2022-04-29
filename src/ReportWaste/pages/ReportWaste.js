@@ -92,7 +92,7 @@ function ReportWaste() {
                         <Row className="w-100 justify-content-center m-0">
                             <h4 className="text-center dark-blue p-5"><i className="fab fa-twitter "></i> &nbsp; Recent Post on Twitter</h4> 
                             <Row id="twt p-0">
-                                {
+                                {tweets.length > 0 &&
                                     tweets.map((row,i) => {
                                         return (
                                             <Col lg={4} key={"twt"+i} className="p-4" dangerouslySetInnerHTML={{__html: row.tweet}}>
