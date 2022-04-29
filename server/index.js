@@ -329,7 +329,12 @@ app.post('/makecomplaints', (req, res)=> {
                 res.send(err);
             } 
             if (result){
-                let str = "" + result[0].id;
+                let str;
+                if(result.length === 0){
+                    str = "" + 1;
+                }else{
+                    str = "" + result[0].id;
+                }
                 let pad = "0000"
                 let ans = pad.substring(0, pad.length - str.length) + str
                 const tracking_id = `RW${ans}`;
