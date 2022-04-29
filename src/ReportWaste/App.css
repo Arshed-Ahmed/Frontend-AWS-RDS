@@ -261,9 +261,9 @@ a.text-dark:focus {
 .btn-div-rw{
   display: flex;
   justify-content: center;
-  background-color: #fff;
+  /* background-color: #fff; */
   border-radius: 10px;
-  margin-top: -4.5rem;
+  /* margin-top: -4.5rem; */
   z-index: 20;
 }
 .green-out-btn {
@@ -272,6 +272,7 @@ a.text-dark:focus {
   border-radius: 0;
   font-weight: 500;
   width: 300px;
+  background-color: rgba(255, 255, 255, 0.251);
   margin: 3rem 2.5rem;
 }
 .dark-blue {
