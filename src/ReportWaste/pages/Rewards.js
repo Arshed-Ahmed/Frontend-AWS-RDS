@@ -169,7 +169,7 @@ function Rewards() {
       const totalsupplyoftokendecimals = await web3.utils.fromWei(totalSupplyofToken, 'ether');
       console.log(totalsupplyoftokendecimals);
 
-      const balanceofuser = await tokenContract.methods.balanceOf(accounts[0]).encodedABI();
+      const balanceofuser = await tokenContract.methods.balanceOf(accounts[0]);
 
 
       const decimals = web3.utils.toBN(18);
