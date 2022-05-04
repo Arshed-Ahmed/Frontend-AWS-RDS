@@ -33,7 +33,7 @@ function Navibar() {
 
                             <NavLink className="nav-link hover" activeClassName="active" to="/reviewform">Review Table</NavLink> */}
 
-                            <NavLink className="nav-link hover" activeClassName="active" to="/analytics">Analytics</NavLink>
+                            <NavLink className="nav-link hover" activeClassName="active" to="/analytics">Blockchain Explorer</NavLink>
 
                             <NavLink className="nav-link" activeClassName="active" to="/login">
                                 <button className="signin">SIGN IN</button>
