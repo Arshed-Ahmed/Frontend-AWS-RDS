@@ -45,7 +45,9 @@ function NewNav(activepath) {
                             <Nav.Link className="reportwaste" href="/whatwedo"> What We Do</Nav.Link>
                             <Nav.Link className="reportwaste" href="/privacyp"> Privacy Policy</Nav.Link>
                             <Nav.Link className="reportwaste" href="/blog"> Blog</Nav.Link>
-                            <Nav.Link className="reportwaste" href="/"> Safe Enviro Dapp</Nav.Link>
+                            <Nav.Link className="pb-0" href="/"> 
+                                <button className="btn donate-btn mb-0">SE Dapp</button>
+                            </Nav.Link>
                         </Nav>
                     </Row>
                 </Navbar.Collapse>
