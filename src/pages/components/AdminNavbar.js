@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Logo from './../logo.png';
-import Container from 'react-bootstrap/Container';
+import {Container} from 'react-bootstrap';
 import { NavLink, Redirect } from "react-router-dom";
 import Web3 from 'web3';
 import swal from 'sweetalert';
@@ -157,40 +157,51 @@ if(window.ethereum){
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse className=" justify-content-end"  id="basic-navbar-nav">
-                        <Nav>
-                            <NavLink className="nav-link" to="#"><strong>Account: </strong>{Account}</NavLink>
+                        <Nav className='justify-content-center flex-wrap'>
+                            <Nav className='col-12'>
+                                <NavLink className="nav-link" to="#"><strong>Account: </strong>{Account}</NavLink>
+                                {isMetaMask === true ? (
+                                    <OverlayTrigger
+                                        key='bottom-1'
+                                        placement='bottom'
+                                        overlay={
+                                            <Tooltip id='tooltip-connected'>
+                                                <strong>Connected</strong>.
+                                            </Tooltip>
+                                        }
+                                    >
+                                        <button className="conweb"><img className="metalogo" alt="Meta Mask" src={metalogo} /> {networkType}</button>
+                                    </OverlayTrigger>
+                                ):(
+                                    <OverlayTrigger
+                                        key='bottom-2'
+                                        placement='bottom'
+                                        overlay={
+                                            <Tooltip id='tooltip-Notconnect'>
+                                                <strong>Connect to MetaMask</strong>.
+                                            </Tooltip>
+                                        }
+                                    >
+                                        <button className="conweb" onClick={loadWeb3}>CONNECT TO  <img className="metalogo" alt="Meta Mask" src={metalogo} /></button>
+                                    </OverlayTrigger>
+                                )}
+                            </Nav>
+                            <Nav className='col-12'>
+                        
+                                <NavLink className="nav-link hover" activeClassName="active" to="/analytics">Blockchain Explorer</NavLink>
 
-                            {isMetaMask === true ? (
-                                <OverlayTrigger
-                                    key='bottom-1'
-                                    placement='bottom'
-                                    overlay={
-                                        <Tooltip id='tooltip-connected'>
-                                            <strong>Connected</strong>.
-                                        </Tooltip>
-                                    }
-                                >
-                                    <button className="conweb"><img className="metalogo" alt="Meta Mask" src={metalogo} /> {networkType}</button>
-                                </OverlayTrigger>
-                            ):(
-                                <OverlayTrigger
-                                    key='bottom-2'
-                                    placement='bottom'
-                                    overlay={
-                                        <Tooltip id='tooltip-Notconnect'>
-                                            <strong>Connect to MetaMask</strong>.
-                                        </Tooltip>
-                                    }
-                                >
-                                    <button className="conweb" onClick={loadWeb3}>CONNECT TO  <img className="metalogo" alt="Meta Mask" src={metalogo} /></button>
-                                </OverlayTrigger>
-                            )}
+                                <NavLink className="nav-link hover" activeClassName="active" to="/reporters">Reporters</NavLink>
 
-                            <NavLink className="nav-link hover" activeClassName="active" to="/analytics">Analytics</NavLink>
+                                <NavLink className="nav-link hover" activeClassName="active" to="/complain">Complains</NavLink>
 
-                            <NavLink className="nav-link hover" activeClassName="active" to="/reviewform">Review Table</NavLink>
+                                <NavLink className="nav-link hover" activeClassName="active" to="/tokenredeemed">Token Redeemed</NavLink>
 
-                            <button className="signin" onClick={logout}>SIGN OUT</button>
+                                <NavLink className="nav-link hover" activeClassName="active" to="/reviewform">Review Table</NavLink>
+
+                                <button className="signin" onClick={logout}>SIGN OUT</button>
+
+                            </Nav>
+
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
