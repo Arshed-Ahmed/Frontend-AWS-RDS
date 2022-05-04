@@ -38,7 +38,7 @@ function Footer() {
                 <a href="/about">About Us</a>|
                 <a href="/blog">Blog</a>|
                 <a href="/privacyp">Privacy Policy</a>|
-                <a href="/rwlogin">Admin</a>
+                <a href="/login">Admin</a>
             </div>
             {/* Copyright */}
             {/* <p className="copyright">
