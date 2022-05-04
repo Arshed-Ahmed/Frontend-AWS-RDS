@@ -125,7 +125,7 @@ function Analytics() {
                     <DataGrid autoHeight 
                         rows={reviewData}
                         columns={columns}
-                        pageSize={10}
+                        pageSize={5}
                     />
                 </Card>
             </Container>
