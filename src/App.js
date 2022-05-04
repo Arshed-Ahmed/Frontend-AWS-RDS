@@ -12,7 +12,6 @@ import Analytics from './pages/Analytics';
 import LoginConfirm from './pages/confirmation/LoginConfirm';
 import Dash from './pages/Dash';
 import AdminRoute from './pages/routes/AdminRoute';
-import IsAdminRoute from './pages/routes/IsAdminRoute';
 import CollectorRoute from './pages/routes/CollectorRoute';
 import AlreadyLoggedin from './pages/confirmation/AlreadyLoggedin';
 import LogoutConfirm from './pages/confirmation/LogoutConfirm';
@@ -28,11 +27,9 @@ import TrackComplain from './ReportWaste/pages/TrackComplain';
 import PrivacyPolicy from './ReportWaste/pages/PrivacyPolicy';
 import WhatWeDo from './ReportWaste/pages/WhatWeDo';
 import Statistic from './ReportWaste/pages/Statistic';
-import RwLogin from './ReportWaste/admin/RwLogin';
-import Admin from './ReportWaste/admin/Admin';
-import Complains from './ReportWaste/admin/Complains';
-import Redeemed from './ReportWaste/admin/Redeemed';
-import Customers from './ReportWaste/admin/Customers';
+import Complain from './pages/rw_admin/Complain';
+import TokenRedeemed from './pages/rw_admin/TokenRedeemed';
+import Reporters from './pages/rw_admin/Reporters';
 
 
 
@@ -47,6 +44,9 @@ function App() {
             <Route path="/dash" exact component={Dash} />
             <CollectorRoute path="/collectionform" exact component={CollectionForm} />
             <AdminRoute path="/reviewform" component={ReviewForm} />
+            <AdminRoute path="/complain" component={Complain} />
+            <AdminRoute path="/reporters" component={Reporters} />
+            <AdminRoute path="/tokenredeemed" component={TokenRedeemed} />
             <Route path="/signup" exact component={Signup} />
             <Route path="/forgotpassword" exact component={ForgotPassword} />
             <Route path="/passwordconfirm" exact component={PasswordConfirm} />
@@ -67,11 +67,6 @@ function App() {
             <Route path="/privacyp" exact component={PrivacyPolicy} />
             <Route path="/statistic" exact component={Statistic} />
             <Route path="/whatwedo" exact component={WhatWeDo} />
-            <Route path="/rwlogin" exact component={RwLogin} />
-            <IsAdminRoute path="/admin" component={Admin} />
-            <IsAdminRoute path="/redeemed" component={Redeemed} />
-            <IsAdminRoute path="/complains" component={Complains} />
-            <IsAdminRoute path="/customers" component={Customers} />
           </Switch>
         </Router>
 
