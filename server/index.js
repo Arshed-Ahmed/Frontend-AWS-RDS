@@ -601,49 +601,6 @@ app.post('/updatecom', (req, res)=> {
 });
 
 
-app.get('/rwlogin', (req, res)=> {
-    if (req.session.user) {
-        res.send({loggedIn: true, user: req.session.user, auth: true});
-    } else {
-        res.send({loggedIn: false, auth: false});
-    }
-});
-
-app.post('/rwlogin', (req, res)=> {
-    const username = req.body.username;
-    const password = req.body.password;
-
-    db.query(
-        "SELECT * FROM `admins` WHERE `name` = ?", 
-        username, 
-        (err, result)=>{
-            if (err) {
-                res.send(err);
-            } 
-            if(result){
-                if ( result.length > 0){
-                    bcrypt.compare(password, result[0].password, (error, response) => {
-                        if(response){
-                            
-                            const id = result[0].id;
-                            const token = jwt.sign({id}, "jwtSecret", {
-                                expiresIn : 300,
-                            });
-
-                            req.session.user = result;
-                            res.json({auth: true, token: token, result: result});
-                        } else {
-                            res.json({auth: false,  message: "Wrong User Name, Password Combination",});
-                        }
-                    });
-                }else{
-                    res.json({auth: false,  message: "This User doesn't exist"});
-                }
-            }
-        }
-    );
-});
-
 // Statistic
 app.get('/CountComplain', (req, res)=> {
     db.query(
