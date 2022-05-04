@@ -53,7 +53,7 @@ function CollectorNavbar() {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse className=" justify-content-end"  id="basic-navbar-nav">
                         <Nav>
-                            <NavLink className="nav-link hover" activeClassName="active" to="/analytics">Analytics</NavLink>
+                            <NavLink className="nav-link hover" activeClassName="active" to="/analytics">Blockchain Explorer</NavLink>
 
                             <NavLink className="nav-link hover" activeClassName="active" to="/collectionform">Collection Form</NavLink>
 
