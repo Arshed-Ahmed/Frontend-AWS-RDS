@@ -23,34 +23,15 @@ function HomeNav() {
             <Navbar.Collapse className=" justify-content-end"  id="basic-navbar-nav">
               <Nav style={{color:'grey'}}>
 
-                <NavLink className="nav-link-hover nav-link-home white" to="/">
-                  Home
-                </NavLink>
-                |
+                
                 <NavLink className="nav-link-hover nav-link-home white" to="/analytics" >
                   Blockchain Explorer
                 </NavLink>
                 |
-                <NavLink className="nav-link-hover nav-link-home white" to="/about" >
-                  About Us
+                <NavLink className="nav-link-home" to="/ReportWaste" >
+                    <button className="signup px-3">Report Waste</button>
                 </NavLink>
                 |
-                <NavLink className="nav-link-hover nav-link-home white" to="/whatwedo" >
-                  What We Do
-                </NavLink>
-                |
-                <NavLink className="nav-link-hover nav-link-home white" to="/statistic" >
-                  Statistics
-                </NavLink>
-                |
-                <NavLink className="nav-link-hover nav-link-home white" to="/blog" >
-                  Blogs
-                </NavLink>
-                |
-                <NavLink className="nav-link-hover nav-link-home white" to="/ReportWaste" >
-                  Report Waste
-                </NavLink>
-
                 <NavLink className='nav-link-home' to="/login">
                     <button className="signup px-3">ADMIN</button>
                 </NavLink>
