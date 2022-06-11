@@ -14,7 +14,9 @@ import {ethers, BigNumber} from 'ethers';
 
 function Rewards() {
 
-  const mintAddress = '0x49FBA60139Da095f7aB653e162C45a27546497F4';
+  const mintAddress = '0x3dDC80F21f8B805e5A4D5544a7b9aD947619342A';
+  //"0x02E5C492127B19d4AF1221bf7FE7379a295f155B";
+  //'0x3dDC80F21f8B805e5A4D5544a7b9aD947619342A' old
 
   const [loading, setLoading] = useState(true);
   const [loading2, setLoading2] = useState(false);
@@ -34,9 +36,10 @@ function Rewards() {
   const [tokenContract, setTokencontract] = useState("");
   const [amount, setAmount] = useState(10);
   const [transferTokens, setTransferTokens] = useState(true);
-  const [balanceofuser, setBalanceofuser] = useState();
+  //const [balanceofuser, setBalanceofuser] = useState();
   const [mintTokenTransfer, setmintTokenTransfer] = useState({});
   const [mintAmount, setMintAmount] = useState(1);
+  const [recipient, setRecipient] = useState();
 
 
   if(window.ethereum){
@@ -153,7 +156,7 @@ function Rewards() {
 
     if(networkId === 3) {
 
-      const tokenContract = new web3.eth.Contract(TokenContractAbi.abi,'0x49FBA60139Da095f7aB653e162C45a27546497F4' );
+      const tokenContract = new web3.eth.Contract(TokenContractAbi.abi,'0x3dDC80F21f8B805e5A4D5544a7b9aD947619342A' );
       //'0xC194B38c5d16dfef10e2b1819efFd07F1a50f526'
       console.log(tokenContract);
 
@@ -170,7 +173,7 @@ function Rewards() {
       console.log(totalsupplyoftokendecimals);
 
       const balanceofuser = await tokenContract.methods.balanceOf(accounts[0]);
-
+      console.log(balanceofuser);
 
       const decimals = web3.utils.toBN(18);
 
@@ -178,8 +181,11 @@ function Rewards() {
       console.log(balanceofuserwei);
 
 
+      // const mintToken = await tokenContract.methods.mint(account[0], amount).call();
+      // console.log(mintToken);
 
-
+    // const GetToken = await TokenContractAbi.mint(accounts[0], 10, {from: mintAddress});
+    // console.log(GetToken);
 
       setLoading(false);
     }else{
@@ -205,7 +211,7 @@ function Rewards() {
   //       console.log("response: ", response);
   //     }catch (err){
   //       console.log("error: ", err);
-
+  //
   //     }
   //   }
   // }
@@ -257,7 +263,8 @@ function Rewards() {
                   setvariant("danger");
                   setShow(false);
                 }else if(tokens <0.2 && tokens >0){
-                  setemailStatus("The Amount of token is not sufficient to withdraw, Your Current Balance "+balanceofuser+" is "+tokens+" tokens");
+                  setemailStatus("The Amount of token is not sufficient to withdraw, Your Current Balance of Token is "+tokens+" tokens");
+                  // setemailStatus("The Amount of token is not sufficient to withdraw, Your Current Balance "+balanceofuser+" is "+tokens+" tokens");
                   setvariant("warning");
                   setShow(false);
                 } else if(tokens >= 0.2){
@@ -291,7 +298,7 @@ function Rewards() {
         email : email,
         tamount : tamount
     };
-    axios.post('http://localhost:3001/withdraw', data).then(
+    axios.post('http://localhost:3000/withdraw', data).then(
       (response) => {
         console.log(response);
         if(!response.err){
@@ -320,56 +327,135 @@ function Rewards() {
     )
   }
 
+  const [txs, setTxs] = useState([]);
+  const [contractInfo, setContractInfo] = useState({
+    address: "-",
+    nameOfToken: "-",
+    symbolOfToken: "-",
+    totalSupply: "-"
+  });
+
+  const [balanceofuser, setBalanceofuser] = useState ({
+    address: "-",
+    balance: "-"
+  });
+
+  const handleContract = async (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+    const erc20 = new ethers.Contract(data.get("addr"), TokenContractAbi, provider);
+    const tokenName = await erc20.name();
+    const symbolOfToken = await erc20.symbol();
+    const totalSupply = await erc20.totalSupply();
+
+    setContractInfo({
+      address: data.get("addr"),
+      tokenName,
+      symbolOfToken,
+      totalSupply
+    });
+  };
+
+  const getBalance = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send("eth_requestAccounts", []);
+    const erc20 = new ethers.Contract(contractInfo.address, TokenContractAbi, provider);
+    const signer = await signer.getSigner();
+    const signerAddress = await signer.getAddress();
+    const balance = await erc20.balanceOf(signerAddress);
+
+    setBalanceofuser({
+      address: signerAddress,
+      balance: String(balance)
+    });
+  };
+
+  const handleMint = async (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    const provider= new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send("eth_requestAccounts", []);
+    const signer = await provider.getSigner();
+    const erc20 = new ethers.Contract(contractInfo.address,TokenContractAbi, signer);
+    await erc20.SafeCoin(data.get("recipient"),data.get("amount"));
+  };
+
+  useEffect(() => {
+    if (contractInfo.address !== "-"){
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const erc20 = new ethers.Contract(
+        contractInfo.address,
+        TokenContractAbi,
+        provider
+      );
+
+      erc20.on("SafeCoin", (sender, recipient, amount, event) => {
+        console.log({sender, recipient, amount, event});
+
+        setTxs((currentTxs) => [
+          ...currentTxs,
+          {
+            txHas: event.transactionHash,
+            recipient,
+            amount: String(amount)
+          }
+        ]);
+      })
+    }
+  }, [contractInfo.address]);
+
   //const mintAccount = '0x64795c01b18dea73808c22a7ca2cafad59a1eeb2';
 
-  async function handleMint() {
-    if(window.ethereum) {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      const contract = new ethers.Contract(
-        mintAddress,
-        TokenContractAbi.abi,
-        signer
-      );
-      try {
-        const response = await contract.mint(BigNumber.from(mintAmount));
-        console.log("response: ", response);
-      } catch(err) {
-        console.log("error: ", err);
-      }
-    }
-  }
+  // async function handleMint() {
+  //   if(window.ethereum) {
+  //     const provider = new ethers.providers.Web3Provider(window.ethereum);
+  //     const signer = provider.getSigner();
+  //     const contract = new ethers.Contract(
+  //       mintAddress,
+  //       TokenContractAbi.abi,
+  //       signer
+  //     );
+  //     try {
+  //       const response = await contract.SafeEviroCoin().send(BigNumber.from(mintAmount));
+  //       console.log("response: ", response);
+  //     } catch(err) {
+  //       console.log("error: ", err);
+  //     }
+  //   }
+  // }
 
-  async function transfer() {
-    const nonce = await web3.eth.getTansactionCount(accounts[0], "latest");
-    console.log(nonce);
-
-    const amount = web3.utils.toWei(transferTokens.toString(), 'Ether');
-    console.log(amount);
-
-    const data = tokenContract.methods.transfer(accounts[0], amount);
-    console.log(data);
-
-    const transactionOfTokens = {
-      'to': accounts[0],
-      'amount' : "0x00",
-      'gasLimit': 6721975,
-      'gasPrice': 20000000000,
-      'nonce': nonce,
-      'data': data
-    }
-
-    const signTrx = await web3.eth.accounts.signTransaction(transactionOfTokens);
-
-    web3.eth.sendSignedTransaction(signTrx.rawTransaction, function(error,hash){
-      if(error) {
-        console.log("Error with transaction");
-      }else{
-        console.log('success', hash);
-        window.alert('hash: ',hash);
-      }
-    })
-  }
+  // async function transfer() {
+  //   const nonce = await web3.eth.getTansactionCount(accounts[0], "latest");
+  //   console.log(nonce);
+  //
+  //   const amount = web3.utils.toWei(transferTokens.toString(), 'Ether');
+  //   console.log(amount);
+  //
+  //   const data = tokenContract.methods.transfer(accounts[0], amount);
+  //   console.log(data);
+  //
+  //   const transactionOfTokens = {
+  //     'to': accounts[0],
+  //     'amount' : "0x00",
+  //     'gasLimit': 6721975,
+  //     'gasPrice': 20000000000,
+  //     'nonce': nonce,
+  //     'data': data
+  //   }
+  //
+  //   const signTrx = await web3.eth.accounts.signTransaction(transactionOfTokens);
+  //
+  //   web3.eth.sendSignedTransaction(signTrx.rawTransaction, function(error,hash){
+  //     if(error) {
+  //       console.log("Error with transaction");
+  //     }else{
+  //       console.log('success', hash);
+  //       window.alert('hash: ',hash);
+  //     }
+  //   })
+  // }
 
   // const sendToken = async () =>  {
   //   const web3 = new Web3(window.ethereum);
@@ -479,7 +565,7 @@ function Rewards() {
             </Row>
         </Col>
     </div>
-    <button className="btn btn-custom-green" onClick={() => transfer()}>Send Tokens</button>
+    <button className="btn btn-custom-green" onClick={() => handleMint() }>Send Tokens</button>
     <Footer />
     </>
   );
