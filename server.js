@@ -557,7 +557,7 @@ app.post('/withdraw', (req, res)=> {
 
 app.get('/displaycomplain', (req, res)=> {
     db.query(
-        "SELECT * FROM `complains`",
+        "SELECT * FROM `complains` ORDER BY `id` DESC",
         (err, result)=>{
             if (err) {
                 res.send(err);
@@ -572,7 +572,7 @@ app.get('/displaycomplain', (req, res)=> {
 
 app.get('/displayredeemed', (req, res)=> {
     db.query(
-        "SELECT * FROM `token_redeemed`",
+        "SELECT * FROM `token_redeemed` ORDER BY `id` DESC",
         (err, result)=>{
             if (err) {
                 res.send(err);
