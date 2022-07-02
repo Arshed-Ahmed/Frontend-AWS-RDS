@@ -9,14 +9,18 @@ import swal from 'sweetalert';
 import axios from "axios";
 import metalogo from '../pages/metamask.svg';
 import TokenContractAbi from '../Contracts/TokenAbi.json';
-import {ethers, BigNumber} from 'ethers';
+import AbiToken from '../Contracts/CoinAbi.json';
+import {ethers, Contract, BigNumber} from 'ethers';
+//import BigNumber from 'ethersproject/BigNumber';
 
 
 function Rewards() {
 
-  const mintAddress = '0x3dDC80F21f8B805e5A4D5544a7b9aD947619342A';
+  const mintAddress = '0x45dBe2af7b22Aa311405775BAef9b9bdC4a122d1'; //CoinAbi is the abi
+  //'0x988eC1a7d0bc9b75BBddD57B7Ba54Bd5561491a8'; //minted wallet
+  //'0x45dBe2af7b22Aa311405775BAef9b9bdC4a122d1';
   //"0x02E5C492127B19d4AF1221bf7FE7379a295f155B";
-  //'0x3dDC80F21f8B805e5A4D5544a7b9aD947619342A' old
+  //'0x3dDC80F21f8B805e5A4D5544a7b9aD947619342A' old & TokenAbi
 
   const [loading, setLoading] = useState(true);
   const [loading2, setLoading2] = useState(false);
@@ -37,9 +41,14 @@ function Rewards() {
   const [amount, setAmount] = useState(10);
   const [transferTokens, setTransferTokens] = useState(true);
   //const [balanceofuser, setBalanceofuser] = useState();
-  const [mintTokenTransfer, setmintTokenTransfer] = useState({});
+  const [mintToken, setmintToken] = useState({});
   const [mintAmount, setMintAmount] = useState(1);
   const [recipient, setRecipient] = useState();
+  const [TokenTransfer, setTokenTransfer] = useState();
+  const [SafeCoin,setSafeCoin] = useState();
+  const [balanceofuser, setBalanceofuser] = useState();
+  const [balanceOfUserWei,setBalanceOfUserWei] = useState();
+
 
 
   if(window.ethereum){
@@ -173,19 +182,39 @@ function Rewards() {
       console.log(totalsupplyoftokendecimals);
 
       const balanceofuser = await tokenContract.methods.balanceOf(accounts[0]);
-      console.log(balanceofuser);
+      setBalanceofuser(balanceofuser)
 
       const decimals = web3.utils.toBN(18);
 
-      const balanceofuserwei = await web3.utils.toBN(10).pow(decimals).toString();
-      console.log(balanceofuserwei);
+      const balanceOfUserwei = await web3.utils.toBN(10).pow(decimals).toString();
+      setBalanceOfUserWei(balanceOfUserWei);
 
-
-      // const mintToken = await tokenContract.methods.mint(account[0], amount).call();
-      // console.log(mintToken);
-
-    // const GetToken = await TokenContractAbi.mint(accounts[0], 10, {from: mintAddress});
-    // console.log(GetToken);
+      // const mintToken = await tokenContract.methods.transfer(accounts[0], tamount).send({from: mintAddress}).then(
+      //   (response) => {
+      //     console.log(response);
+      //     if(!response.err){
+      //       swal({
+      //           title: "Transaction Incomplete!",
+      //           text: response.err,
+      //           icon: "warning",
+      //         });
+      //     }else {
+      //       swal({
+      //           title: "Transaction Complete!",
+      //           text: response.message,
+      //           icon: "success",
+      //         });
+      //     }
+      //   }
+      // ).catch(
+      //   (err) => {
+      //       swal({
+      //          title: "Transaction Incomplete!",
+      //          text: err.message +", this could also be due to insufficient funds or network congestions. Please resubmit the transaction.",
+      //          icon: "warning",
+      //       });
+      //   }
+      // )
 
       setLoading(false);
     }else{
@@ -197,24 +226,42 @@ function Rewards() {
     }
   }
 
-  // const handleTransfer = async (e) => {
-  //   if(window.ethereum) {
-  //     const provider = new ethers.providers.Web3Provider(window.ethereum);
-  //     const signer = provider.getSigner();
-  //     const contract = new ethers.Contract(
-  //       mintAddress,
-  //       TokenContractAbi.abi,
-  //       signer
-  //     );
-  //     try{
-  //       const response = await contract.mint(BigNumber.from(amount));
-  //       console.log("response: ", response);
-  //     }catch (err){
-  //       console.log("error: ", err);
-  //
-  //     }
-  //   }
-  // }
+  const [balance, setBalance] = useState()
+  const [showBalance, setShowBalance] = useState(false)
+
+  async function getBalance() {
+    if (typeof window.ethereum !== 'undefined') {
+      const [account] = await window.ethereum.request({method: 'eth_requestAccounts'});
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const contract = new ethers.Contract(mintAddress, AbiToken.abi, provider);
+      const balance = await contract.balanceOf(account[0]);
+      console.log("Balance: ", balance.toString());
+      setBalance(balance.toString());
+      setShowBalance(true);
+    }
+  }
+
+  async function transfer() {
+    if (typeof window.ethereum !== 'undefined') {
+      const account = await window.ethereum.request({ method: 'eth_requestAccounts'});
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const decimals = 18;
+      const tamount = 10;
+      const amount = BigNumber.from(tamount).mul(BigNumber.from(10).pow(decimals));
+      const contract = new ethers.Contract(mintAddress,AbiToken.abi, signer);
+      contract.transfer(account[0], amount).then(
+        (result) =>{
+          console.log(result);
+        }
+      ).catch(
+        (err) => {
+          console.log(err);
+        }
+      )
+    }
+  }
+
 
   useEffect(() => {
     loadWeb3();
@@ -241,6 +288,7 @@ function Rewards() {
       window.localStorage.setItem('complaint-data', JSON.stringify(formValues));
   });
 
+
   const verifyEmail = e => {
     e.preventDefault(); ;
     const data ={
@@ -264,6 +312,7 @@ function Rewards() {
                   setShow(false);
                 }else if(tokens <0.2 && tokens >0){
                   setemailStatus("The Amount of token is not sufficient to withdraw, Your Current Balance of Token is "+tokens+" tokens");
+
                   // setemailStatus("The Amount of token is not sufficient to withdraw, Your Current Balance "+balanceofuser+" is "+tokens+" tokens");
                   setvariant("warning");
                   setShow(false);
@@ -289,7 +338,7 @@ function Rewards() {
   const withdrawTokens = (e) => {
     e.preventDefault();
     if ( tokens - tamount <= 0.2){
-      setemailStatus("A minimum of 20 Token must remain as balance after redeeming, Your current balance is "+tokens+" tokens");
+      setemailStatus("A minimum of 0.2 Token must remain as balance after redeeming, Your current balance is "+tokens+" tokens");
       setvariant("danger");
       setShow(true);
       return;
@@ -298,7 +347,7 @@ function Rewards() {
         email : email,
         tamount : tamount
     };
-    axios.post('http://localhost:3000/withdraw', data).then(
+    axios.post('http://localhost:3001/withdraw', data).then(
       (response) => {
         console.log(response);
         if(!response.err){
@@ -327,151 +376,110 @@ function Rewards() {
     )
   }
 
-  const [txs, setTxs] = useState([]);
-  const [contractInfo, setContractInfo] = useState({
-    address: "-",
-    nameOfToken: "-",
-    symbolOfToken: "-",
-    totalSupply: "-"
-  });
-
-  const [balanceofuser, setBalanceofuser] = useState ({
-    address: "-",
-    balance: "-"
-  });
-
-  const handleContract = async (e) => {
-    e.preventDefault();
-    const data = new FormData(e.target);
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-
-    const erc20 = new ethers.Contract(data.get("addr"), TokenContractAbi, provider);
-    const tokenName = await erc20.name();
-    const symbolOfToken = await erc20.symbol();
-    const totalSupply = await erc20.totalSupply();
-
-    setContractInfo({
-      address: data.get("addr"),
-      tokenName,
-      symbolOfToken,
-      totalSupply
-    });
-  };
-
-  const getBalance = async () => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    await provider.send("eth_requestAccounts", []);
-    const erc20 = new ethers.Contract(contractInfo.address, TokenContractAbi, provider);
-    const signer = await signer.getSigner();
-    const signerAddress = await signer.getAddress();
-    const balance = await erc20.balanceOf(signerAddress);
-
-    setBalanceofuser({
-      address: signerAddress,
-      balance: String(balance)
-    });
-  };
-
-  const handleMint = async (e) => {
-    e.preventDefault();
-    const data = new FormData(e.target);
-    const provider= new ethers.providers.Web3Provider(window.ethereum);
-    await provider.send("eth_requestAccounts", []);
-    const signer = await provider.getSigner();
-    const erc20 = new ethers.Contract(contractInfo.address,TokenContractAbi, signer);
-    await erc20.SafeCoin(data.get("recipient"),data.get("amount"));
-  };
-
-  useEffect(() => {
-    if (contractInfo.address !== "-"){
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const erc20 = new ethers.Contract(
-        contractInfo.address,
-        TokenContractAbi,
-        provider
-      );
-
-      erc20.on("SafeCoin", (sender, recipient, amount, event) => {
-        console.log({sender, recipient, amount, event});
-
-        setTxs((currentTxs) => [
-          ...currentTxs,
-          {
-            txHas: event.transactionHash,
-            recipient,
-            amount: String(amount)
-          }
-        ]);
-      })
-    }
-  }, [contractInfo.address]);
-
-  //const mintAccount = '0x64795c01b18dea73808c22a7ca2cafad59a1eeb2';
-
-  // async function handleMint() {
-  //   if(window.ethereum) {
+  // const [txs, setTxs] = useState([]);
+  // const [contractInfo, setContractInfo] = useState({
+  //   address: "-",
+  //   nameOfToken: "-",
+  //   symbolOfToken: "-",
+  //   totalSupply: "-"
+  // });
+  //
+  // const [balanceofuser, setBalanceofuser] = useState ({
+  //   address: "-",
+  //   balance: "-"
+  // });
+  //
+  // const handleContract = async (e) => {
+  //   e.preventDefault();
+  //   const formdata = new FormData();
+  //   const provider = new ethers.providers.Web3Provider(window.ethereum);
+  //
+  //   const erc20 = new ethers.Contract(formdata.get("addr"), TokenContractAbi, provider);
+  //   const tokenName = await erc20.name();
+  //   const symbolOfToken = await erc20.symbol();
+  //   const totalSupply = await erc20.totalSupply();
+  //
+  //   setContractInfo({
+  //     address: formdata.get("addr"),
+  //     tokenName,
+  //     symbolOfToken,
+  //     totalSupply
+  //   });
+  // };
+  //
+  // const getBalance = async () => {
+  //   const provider = new ethers.providers.Web3Provider(window.ethereum);
+  //   await provider.send("eth_requestAccounts", []);
+  //   const erc20 = new ethers.Contract('0x3dDC80F21f8B805e5A4D5544a7b9aD947619342A', TokenContractAbi, provider);
+  //   const signer = await signer.getSigner();
+  //   const signerAddress = await signer.getAddress();
+  //   const balance = await erc20.balanceOf(signerAddress);
+  //
+  //   setBalanceofuser({
+  //     address: signerAddress,
+  //     balance: String(balance)
+  //   });
+  // };
+  //
+  // const handleMint = async (e) => {
+  //   e.preventDefault();
+  //   const formdata = {'amount': tamount, 'recipient': accounts[0] }
+  //   const provider= new ethers.providers.Web3Provider(window.ethereum);
+  //   await provider.send("eth_requestAccounts", []);
+  //   const signer = await provider.getSigner();
+  //   const erc20 = new ethers.Contract('0x3dDC80F21f8B805e5A4D5544a7b9aD947619342A',TokenContractAbi, signer);
+  //   await erc20.handleMint(formdata.recipient,formdata.amount);
+  // };
+  //
+  // useEffect(() => {
+  //   if (contractInfo.address !== "-"){
   //     const provider = new ethers.providers.Web3Provider(window.ethereum);
-  //     const signer = provider.getSigner();
-  //     const contract = new ethers.Contract(
-  //       mintAddress,
-  //       TokenContractAbi.abi,
-  //       signer
+  //     const erc20 = new ethers.Contract(
+  //       contractInfo.address,
+  //       TokenContractAbi,
+  //       provider
   //     );
-  //     try {
-  //       const response = await contract.SafeEviroCoin().send(BigNumber.from(mintAmount));
-  //       console.log("response: ", response);
-  //     } catch(err) {
-  //       console.log("error: ", err);
-  //     }
-  //   }
-  // }
-
-  // async function transfer() {
-  //   const nonce = await web3.eth.getTansactionCount(accounts[0], "latest");
-  //   console.log(nonce);
   //
-  //   const amount = web3.utils.toWei(transferTokens.toString(), 'Ether');
-  //   console.log(amount);
+  //     erc20.on("handleMint", (sender, recipient, amount, event) => {
+  //       console.log({sender, recipient, amount, event});
   //
-  //   const data = tokenContract.methods.transfer(accounts[0], amount);
-  //   console.log(data);
-  //
-  //   const transactionOfTokens = {
-  //     'to': accounts[0],
-  //     'amount' : "0x00",
-  //     'gasLimit': 6721975,
-  //     'gasPrice': 20000000000,
-  //     'nonce': nonce,
-  //     'data': data
-  //   }
-  //
-  //   const signTrx = await web3.eth.accounts.signTransaction(transactionOfTokens);
-  //
-  //   web3.eth.sendSignedTransaction(signTrx.rawTransaction, function(error,hash){
-  //     if(error) {
-  //       console.log("Error with transaction");
-  //     }else{
-  //       console.log('success', hash);
-  //       window.alert('hash: ',hash);
-  //     }
-  //   })
-  // }
-
-  // const sendToken = async () =>  {
-  //   const web3 = new Web3(window.ethereum);
-  //   const T = 10;
-  //   const amount = await web3.utils.toWei(T.toString())
-  //     await mintTokenTransfer
-  //     .methods
-  //     .transfer(account, amount)
-  //     .send({from: mintAddress})
-  //     .once("recepient", (recepient) => {
-  //       window.alert("sucess")
+  //       setTxs((currentTxs) => [
+  //         ...currentTxs,
+  //         {
+  //           txHas: event.transactionHash,
+  //           recipient,
+  //           amount: String(amount)
+  //         }
+  //       ]);
   //     })
-  //     .on("error", () => {
-  //       window.alert("error")
+  //   }
+  // }, [contractInfo.address]);
+
+
+  // const async mintToken(tokenName, symbol, decimals, mintAddress) => {
+  //   return new Promise((accept, reject) => {
+  //     getBalance(mintAddress).then(balanceofuser => {
+  //       if(balanceofuser == 0.02 > 0) {
+  //         let tokenContract ? TokenContractAbi;
+  //         instantiateContract(tokenContract, mintAddress).then(txHash =>{
+  //           accept(txHash);
+  //           return;
+  //         }).catch((e) => {
+  //           reject(new Error("Can't create contract"));
+  //           return ;
+  //         });
+  //       } else {
+  //         reject(new Error("Account :" + account[0] + "doesn't have enough funds"));
+  //         return ;
+  //       }
+  //     }).catch((e) => {
+  //       reject(new Error("could not check the balance of user"));
+  //       return ;
   //     });
+  //   });
   // }
+
+
 
   return (
     <>
@@ -518,7 +526,7 @@ function Rewards() {
                       <h4 className="py-3">Enter your email address to verify and get your tokens.</h4>
                     </div>
 
-                    <form id="foucet-form" method="POST" onSubmit={verifyEmail} encType="multipart/form-data">
+                    <form id="foucetForm" method="POST" onSubmit={withdrawTokens} encType="multipart/form-data">
                         {/* @csrf */}
                         <Alert variant={variant} className="text-center">
                             {emailStatus}
@@ -531,7 +539,7 @@ function Rewards() {
                                   onChange={e => {settamount(e.target.value)}} value={tamount} />
                             </div>
                             <div className="col-sm-1 d-flex align-items-end">
-                              <button type="btn" className="btn btn-custom-green" id="foucet-token-btn" onClick={handleMint}>
+                              <button type="submit" className="btn btn-custom-green" id="foucet-token-btn" onClick={transfer}>
                                 Redeem
                               </button>
                             </div>
@@ -550,7 +558,7 @@ function Rewards() {
                         </div>
                         <div className="form-group row">
                             <div className="mb-5 mt-3">
-                                <button type="submit" className="btn btn-custom-green d-block m-auto" id="foucet-submit-btn">
+                                <button onClick={verifyEmail} className="btn btn-custom-green d-block m-auto" id="foucet-submit-btn">
                                     SUBMIT
                                 </button>
                             </div>
@@ -565,7 +573,7 @@ function Rewards() {
             </Row>
         </Col>
     </div>
-    <button className="btn btn-custom-green" onClick={() => handleMint() }>Send Tokens</button>
+    <button className="btn btn-custom-green" onClick={transfer}>Send Tokens</button>
     <Footer />
     </>
   );
