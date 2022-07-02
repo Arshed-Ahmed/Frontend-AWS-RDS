@@ -41,7 +41,8 @@ app.use(
 
 const db = mysql.createConnection({
     // host: "safedb-regan.c60x627olbkb.eu-west-2.rds.amazonaws.com",
-    host: "safedb.c60x627olbkb.eu-west-2.rds.amazonaws.com",
+    // host: "safedb.c60x627olbkb.eu-west-2.rds.amazonaws.com",
+    host: "safedb-new.c60x627olbkb.eu-west-2.rds.amazonaws.com",
     user: "admin",
     password:"password",
     port:"3306",
