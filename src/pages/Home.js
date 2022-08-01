@@ -126,18 +126,16 @@ function Home() {
               <Row className='para-row1'>
                 <Col lg={8} md={8} sm={(12)} className='para-div pt-0'>
                   <h3 className='b-700 pb-4 white'>What can blockchain technology do in wastes management?</h3>
-                  <p>
-                    <ul>
-                      <li>Better wastes management</li>
-                      <li>Identify household and industry wastes</li>
-                      <li>Store industry data and analytics</li>
-                      <li>Create awareness to public</li>
-                      <li>Make industries more responsible</li>
-                      <li>Greater shift towards circular economy</li>
-                      <li>Develop an ecosystem for everyone to participate</li>
-                      <li>A revolution in wastes management can be achieved</li>
-                    </ul>
-                  </p>
+                  <ul style={{fontFamily: 'Poppins, sans-serif',lineHeight: 2}}>
+                    <li>Better wastes management</li>
+                    <li>Identify household and industry wastes</li>
+                    <li>Store industry data and analytics</li>
+                    <li>Create awareness to public</li>
+                    <li>Make industries more responsible</li>
+                    <li>Greater shift towards circular economy</li>
+                    <li>Develop an ecosystem for everyone to participate</li>
+                    <li>A revolution in wastes management can be achieved</li>
+                  </ul>
                   {/* <button className="readmore px-3 mt-3">Read more</button> */}
                 </Col>
               </Row>

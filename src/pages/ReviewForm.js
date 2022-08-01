@@ -13,7 +13,7 @@ import { useTable, useRowSelect } from 'react-table';
 import { Checkbox } from './components/Checkbox';
 import NavCol from './components/NavCol';
 import swal from 'sweetalert';
-import Storehash from './../contracts/Storehash.json';
+import Storehash from './../Contracts/Storehash.json';
 import Web3 from 'web3';
 import toHex from 'to-hex';
 
