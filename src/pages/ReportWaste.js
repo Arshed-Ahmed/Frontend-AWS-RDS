@@ -6,6 +6,7 @@ import gdump from '../asset/img/g-dump.png';
 import MultiCarousel from "./MultiCarousel.js"; 
 import NewNav from "./components/RepNav";
 import Footer from "./components/RepFooter";
+import { NavLink } from "react-router-dom";
 
 function ReportWaste() {
 
@@ -38,17 +39,17 @@ function ReportWaste() {
                             <div className="overlay"></div>
                             <div className="d-block mx-auto mb-0 w-auto z-index3">
                                 <p className="text-center banner-p">
-                                    <a href="/makec" id="issue"><span>Report an issue</span></a> <br />
+                                    <NavLink to="/makec" id="issue"><span>Report an issue</span></NavLink> <br />
                                     <span className="font50 b-700">Report illegal dumping</span> <br />
                                     <span className="b-500">Dumping unwanted material on the footpath is an offence.</span>
                                 </p>
                                 <Col className="btn-div-rw">
-                                    <a href='/makec' style={{textDecoration:'none'}}>
+                                    <NavLink to='/makec' style={{textDecoration:'none'}}>
                                         <button className="btn btn-lg green-out-btn">Make a Complaint</button>
-                                    </a>
-                                    <a href='/trackc' style={{textDecoration:'none'}}>
+                                    </NavLink>
+                                    <NavLink to='/trackc' style={{textDecoration:'none'}}>
                                         <button className="btn btn-lg green-out-btn">Track Complaint</button>
-                                    </a>
+                                    </NavLink>
                                 </Col>
                             </div>
                             
