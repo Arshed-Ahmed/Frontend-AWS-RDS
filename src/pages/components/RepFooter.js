@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import '../App.css';
 
 function Footer() {
@@ -15,30 +16,30 @@ function Footer() {
         <div className="text-center p-4" id="footer-con">
             <div id="footer-social-icons" className="mb-4">
                 <li className="list-inline-item">
-                    <a className="px-1" href="linkedin.com"><i className="fab fa-linkedin-in fa-2x"></i></a>
+                    <NavLink className="px-1" to="linkedin.com"><i className="fab fa-linkedin-in fa-2x"></i></NavLink>
                 </li>
                 <li className="list-inline-item">
-                    <a className="px-1" href="twitter.com"><i className="fab fa-twitter fa-2x"></i></a>
+                    <NavLink className="px-1" to="twitter.com"><i className="fab fa-twitter fa-2x"></i></NavLink>
                 </li>
                 <li className="list-inline-item">
-                    <a className="px-1" href="youtube.com"><i className="fab fa-youtube fa-2x"></i></a>
+                    <NavLink className="px-1" to="youtube.com"><i className="fab fa-youtube fa-2x"></i></NavLink>
                 </li>
                 <li className="list-inline-item">
-                    <a className="px-1" href="facebook.com"><i className="fab fa-facebook fa-2x"></i></a>
+                    <NavLink className="px-1" to="facebook.com"><i className="fab fa-facebook fa-2x"></i></NavLink>
                 </li>
                 <li className="list-inline-item">
-                    <a className="px-1" href="instagram.com"><i className="fab fa-instagram fa-2x"></i></a>
+                    <NavLink className="px-1" to="instagram.com"><i className="fab fa-instagram fa-2x"></i></NavLink>
                 </li>
                 <li className="list-inline-item">
-                    <a className="px-1" href="whatsapp.com"><i className="fab fa-whatsapp fa-2x"></i></a>
+                    <NavLink className="px-1" to="whatsapp.com"><i className="fab fa-whatsapp fa-2x"></i></NavLink>
                 </li>
             </div>
             <div id="footer-nav-links" className="mb-4">
-                <a href="/whatwedo">What we do</a>|
-                <a href="/about">About Us</a>|
-                <a href="/blog">Blog</a>|
-                <a href="/privacyp">Privacy Policy</a>|
-                <a href="/login">Admin</a>
+                <NavLink to="/whatwedo">What we do</NavLink>|
+                <NavLink to="/about">About Us</NavLink>|
+                <NavLink to="/blog">Blog</NavLink>|
+                <NavLink to="/privacyp">Privacy Policy</NavLink>|
+                <NavLink to="/login">Admin</NavLink>
             </div>
             {/* Copyright */}
             {/* <p className="copyright">
