@@ -4,6 +4,7 @@ import { Row } from "react-bootstrap";
 import logo from '../replogo.png';
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
+import { NavLink } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 
 function NewNav(activepath) {
@@ -29,25 +30,25 @@ function NewNav(activepath) {
                                     </div>
                                 </form>
                             </Nav.Link>
-                            <Nav.Link href="#" className="">
+                            <NavLink to="#" className="">
                                 <button className="btn btn-sm donate-btn" href="#">
                                             Donate Now
                                 </button>
-                            </Nav.Link>
+                            </NavLink>
                         </Nav>
                     </Row>
                     <Row id="top-nav2">
                         <Nav activeKey={activepath} className="m-auto" >
-                            <Nav.Link className="reportwaste" href="/ReportWaste"> Home</Nav.Link>
-                            <Nav.Link className="reportwaste" href="/statistic"> Statistic</Nav.Link>
-                            <Nav.Link className="reportwaste" href="/about"> About Us</Nav.Link>
-                            <Nav.Link className="reportwaste" href="/rewards"> Rewards</Nav.Link>
-                            <Nav.Link className="reportwaste" href="/whatwedo"> What We Do</Nav.Link>
-                            <Nav.Link className="reportwaste" href="/privacyp"> Privacy Policy</Nav.Link>
-                            <Nav.Link className="reportwaste" href="/blog"> Blog</Nav.Link>
-                            <Nav.Link className="pb-0" href="/"> 
+                            <NavLink className="reportwaste" to="/ReportWaste"> Home</NavLink>
+                            <NavLink className="reportwaste" to="/statistic"> Statistic</NavLink>
+                            <NavLink className="reportwaste" to="/about"> About Us</NavLink>
+                            <NavLink className="reportwaste" to="/rewards"> Rewards</NavLink>
+                            <NavLink className="reportwaste" to="/whatwedo"> What We Do</NavLink>
+                            <NavLink className="reportwaste" to="/privacyp"> Privacy Policy</NavLink>
+                            <NavLink className="reportwaste" to="/blog"> Blog</NavLink>
+                            <NavLink className="pb-0" to="/"> 
                                 <button className="btn donate-btn mb-0">SE Dapp</button>
-                            </Nav.Link>
+                            </NavLink>
                         </Nav>
                     </Row>
                 </Navbar.Collapse>

@@ -11,6 +11,7 @@ import card5 from "../asset/img/NoPath - Copy (52).png";
 import card6 from "../asset/img/NoPath - Copy (53).png";
 import NewNav from "./components/RepNav";
 import Footer from "./components/RepFooter";
+import { NavLink } from "react-router-dom";
 
 function Blog() {
   return (
@@ -38,7 +39,7 @@ function Blog() {
                                       <p style={{fontSize: '12px' }} className="card-text text-center text-dark">An advanced efficient waste management sector is profoundly important to the resolution of many...</p>
                                       <nav aria-label="breadcrumb">
                                           <ol className="breadcrumb">
-                                            <li className="breadcrumb-item" style={{marginLeft: '30px'}}><a href="/blog1">View More Details&gt;&gt;</a></li>
+                                            <li className="breadcrumb-item" style={{marginLeft: '30px'}}><NavLink to="/blog1">View More Details&gt;&gt;</NavLink></li>
                                           </ol>
                                         </nav>
                                   </div>
@@ -53,7 +54,7 @@ function Blog() {
                                       <p style={{fontSize: '12px' }} className="card-text text-center text-dark">Generally, food waste is recycled using one of two methods, composting and anaerobic digestion...</p>
                                       <nav aria-label="breadcrumb">
                                           <ol className="breadcrumb">
-                                            <li className="breadcrumb-item" style={{marginLeft: '30px'}}><a href="/blog1">View More Details&gt;&gt;</a></li>
+                                            <li className="breadcrumb-item" style={{marginLeft: '30px'}}><NavLink to="/blog1">View More Details&gt;&gt;</NavLink></li>
                                           </ol>
                                         </nav>
                                   </div>
@@ -68,7 +69,7 @@ function Blog() {
                                       <p style={{fontSize: '12px' }} className="card-text text-center text-dark">Many people are searching for cheap rubbish removal as they are pressurized financially on households and...</p>
                                       <nav aria-label="breadcrumb">
                                           <ol className="breadcrumb">
-                                            <li className="breadcrumb-item" style={{marginLeft: '30px'}}><a href="/blog1">View More Details&gt;&gt;</a></li>
+                                            <li className="breadcrumb-item" style={{marginLeft: '30px'}}><NavLink to="/blog1">View More Details&gt;&gt;</NavLink></li>
                                           </ol>
                                         </nav>
                                   </div>
@@ -83,7 +84,7 @@ function Blog() {
                                       <p style={{fontSize: '12px' }} className="card-text text-center text-dark">Handling of sometimes hazardous waste carelessly poses tremendous harm for the health of humans and the...</p>
                                       <nav aria-label="breadcrumb">
                                           <ol className="breadcrumb">
-                                            <li className="breadcrumb-item" style={{marginLeft: '30px'}}><a href="/blog1">View More Details&gt;&gt;</a></li>
+                                            <li className="breadcrumb-item" style={{marginLeft: '30px'}}><NavLink to="/blog1">View More Details&gt;&gt;</NavLink></li>
                                           </ol>
                                         </nav>
                                   </div>
@@ -98,7 +99,7 @@ function Blog() {
                                       <p style={{fontSize: '12px' }} className="card-text text-center text-dark">In spite of the fact that methane pollution makes up only 20% of all greenhouse gas emissions thankfully...</p>
                                       <nav aria-label="breadcrumb">
                                           <ol className="breadcrumb">
-                                            <li className="breadcrumb-item" style={{marginLeft: '30px'}}><a href="/blog1">View More Details&gt;&gt;</a></li>
+                                            <li className="breadcrumb-item" style={{marginLeft: '30px'}}><NavLink to="/blog1">View More Details&gt;&gt;</NavLink></li>
                                           </ol>
                                         </nav>
                                   </div>
@@ -113,7 +114,7 @@ function Blog() {
                                       <p style={{fontSize: '12px'}} className="card-text text-center text-dark">Arguably the most serious challenge currently affected by humans as a species is climate change. After all...</p>
                                       <nav aria-label="breadcrumb">
                                           <ol className="breadcrumb">
-                                            <li className="breadcrumb-item" style={{marginLeft: '30px'}}><a href="/blog1">View More Details&gt;&gt;</a></li>
+                                            <li className="breadcrumb-item" style={{marginLeft: '30px'}}><NavLink to="/blog1">View More Details&gt;&gt;</NavLink></li>
                                           </ol>
                                         </nav>
                                   </div>

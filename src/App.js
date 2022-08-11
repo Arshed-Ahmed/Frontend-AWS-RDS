@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {HashRouter, Route } from "react-router-dom";
 import CollectionForm from './pages/CollectionForm';
 import ReviewForm from './pages/ReviewForm';
 import ForgotPassword from './pages/ForgotPassword'; 
@@ -37,40 +37,35 @@ function App() {
 
   return (
       <div>
-        
-        <Router>
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/dash" exact component={Dash} />
-            <CollectorRoute path="/collectionform" exact component={CollectionForm} />
-            <AdminRoute path="/reviewform" component={ReviewForm} />
-            <AdminRoute path="/complain" component={Complain} />
-            <AdminRoute path="/reporters" component={Reporters} />
-            <AdminRoute path="/tokenredeemed" component={TokenRedeemed} />
-            <Route path="/signup" exact component={Signup} />
-            <Route path="/forgotpassword" exact component={ForgotPassword} />
-            <Route path="/passwordconfirm" exact component={PasswordConfirm} />
-            <Route path="/signupconfirm" exact component={SignupConfirm} />
-            <Route path="/loginconfirm" exact component={LoginConfirm} />
-            <Route path="/alreadyloggedin" exact component={AlreadyLoggedin} />
-            <Route path="/login" exact component={Login} />
-            <Route path="/analytics" exact component={Analytics} />
-            <Route path="/logoutconfirm" exact component={LogoutConfirm} />
-            <Route path="/ReportWaste" exact component={ReportWaste} />
-            <Route path="/about" exact component={About} />
-            <Route path="/blog" exact component={Blog} />
-            <Route path="/blog1" exact component={Blog1} />
-            <Route path="/foucet" exact component={Foucet} />
-            <Route path="/rewards" exact component={Rewards} />
-            <Route path="/makec" exact component={MakeComplain} />
-            <Route path="/trackc" exact component={TrackComplain} />
-            <Route path="/privacyp" exact component={PrivacyPolicy} />
-            <Route path="/statistic" exact component={Statistic} />
-            <Route path="/whatwedo" exact component={WhatWeDo} />
-          </Switch>
-        </Router>
-
-        {/* <Footer /> */}
+        <HashRouter>
+              <Route path="/about" exact component={About} />
+              <Route path="/blog" exact component={Blog} />
+              <Route path="/blog1" exact component={Blog1} />
+              <Route path="/foucet" exact component={Foucet} />
+              <Route path="/rewards" exact component={Rewards} />
+              <Route path="/makec" exact component={MakeComplain} />
+              <Route path="/trackc" exact component={TrackComplain} />
+              <Route path="/privacyp" exact component={PrivacyPolicy} />
+              <Route path="/statistic" exact component={Statistic} />
+              <Route path="/whatwedo" exact component={WhatWeDo} />
+              <Route path="/" exact component={Home} />
+              <Route path="/dash" exact component={Dash} />
+              <CollectorRoute path="/collectionform" exact component={CollectionForm} />
+              <AdminRoute path="/reviewform" component={ReviewForm} />
+              <AdminRoute path="/complain" component={Complain} />
+              <AdminRoute path="/reporters" component={Reporters} />
+              <AdminRoute path="/tokenredeemed" component={TokenRedeemed} />
+              <Route path="/signup" exact component={Signup} />
+              <Route path="/forgotpassword" exact component={ForgotPassword} />
+              <Route path="/passwordconfirm" exact component={PasswordConfirm} />
+              <Route path="/signupconfirm" exact component={SignupConfirm} />
+              <Route path="/loginconfirm" exact component={LoginConfirm} />
+              <Route path="/alreadyloggedin" exact component={AlreadyLoggedin} />
+              <Route path="/login" exact component={Login} />
+              <Route path="/analytics" exact component={Analytics} />
+              <Route path="/logoutconfirm" exact component={LogoutConfirm} />
+              <Route path="/ReportWaste" exact component={ReportWaste} />
+        </HashRouter>
       </div>
   );
 }
