@@ -456,11 +456,18 @@ a.text-dark:focus {
   padding: 1px 2rem;
   border-bottom: 1px solid rgb(153, 153, 153);
 }
-#top-navbar .nav-link {
+#top-navbar .reportwaste {
   color: black;
   font-weight: 400;
   padding: 0.5rem 1.2rem;
   font-size: 17px;
+  text-decoration: none !important;
+  margin-left: 20px;
+  margin-right: 20px;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-
+}
+#top-navbar .reportwaste:hover {
+  color: #1bc475;
 }
 #top-navbar .nav-link:hover {
   color: #1bc475;
