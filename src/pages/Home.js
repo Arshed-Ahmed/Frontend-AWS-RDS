@@ -8,6 +8,7 @@ import card2 from '../asset/decentralized.png';
 import card3 from '../asset/shield.png';
 import img_bg1 from '../asset/Ellipse 18.png';
 import img_bg2 from '../asset/Ellipse 19.png';
+import { NavLink } from 'react-router-dom';
 
 function Home() {
   return (
@@ -35,18 +36,18 @@ function Home() {
             <Row className='justify-content-center'>
               <Row className='button-div'>
                 <Col md={6}>
-                  <a href='/makec' style={{textDecoration:'none'}}>
+                  <NavLink to='/makec' style={{textDecoration:'none'}}>
                     <button className="btn btn-complain btn-lg">
                       Make a Complaint
                     </button>
-                  </a>
+                  </NavLink>
                 </Col>
                 <Col md={6}>
-                  <a href='/trackc' style={{textDecoration:'none'}}>
+                  <NavLink to='/trackc' style={{textDecoration:'none'}}>
                     <button className="btn btn-complain btn-lg">
                       Take Complaint
                     </button>
-                  </a>
+                  </NavLink>
                 </Col>
               </Row>
             </Row>
