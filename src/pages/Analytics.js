@@ -114,7 +114,7 @@ function Analytics() {
                 // setreviewStatus(err.message);
             }
         )
-    },[reviewData])
+    },[])
 
       
     return (
